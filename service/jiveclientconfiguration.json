@@ -1,0 +1,340 @@
+{
+  "clientUrl": "https://TODO_YOUR_JIVE_DERBY_CLOUD_SERVICE_URL.com",
+  "port": "8090",
+  "development": false,
+  "scheduler" : "memory",
+  "clientUrlExcludesPort": true,
+  "logLevel": "DEBUG",
+  "logFile": "logs/jive-sdk.log",
+  "logFileSize": 20480,
+  "logFileNumBackups": 3,
+  "persistence": "jive-persistence-postgres",
+  "databaseUrl" : "pg://TODO_USERNAME:TODO_PASSWORD@TODO_DATABASE_HOST:5432/TODO_DATABASE_NAME",
+  "dbPool" : 5,
+  "extensionInfo": {
+    "id": "eb09bb4c-32f5-4f1e-8dd5-8d3ca5b5beff",
+    "uuid": "eb09bb4c-32f5-4f1e-8dd5-8d3ca5b5beff",
+    "name": "Jive Derby",
+    "description": "An add-on to stream Jive Derby results to a Jive instance",
+    "icon_16": "extension-16.png",
+    "icon_48": "extension-48.png",
+    "icon_128": "extension-128.png",
+    "releasedOn": "2017-04-17T20:54:17.244Z",
+    "register_url": "%serviceURL%/jive/oauth/register",
+    "unregister_url": "%serviceURL%/jive/oauth/unregister",
+    "config_url": "%serviceURL%/tiles-shared/configure?tile=addon&features=tile,core-v3,os-2.5,oauth"
+  },
+  "ext": {
+    "events" : {
+      "JIVE_EXTOBJECT_CREATED" : "jiveExtObjectCreated",
+      "DERBY_RACE_CREATED" : "derbyRaceCreated",
+      "DERBY_POPULAR_RACE_CALCULATE" : "derbyPopularRaceCalculate"
+    },
+    "sql" : {
+      "getActiveDerbies" : "SELECT id, name from jderby_derbies WHERE isActive=true"
+    },
+    "service": {
+      "securityHeader": "X-API-KEY",
+      "securityValue": "TODO_REPLACE_ME"
+    },
+    "jive": {
+      "options" : {
+        "apiUserFields" : "jive.enabled,resources.avatar,resources.html,resources.self,jive.username,displayName,jive.profile.Company,jive.profile.Title"
+      },
+      "oauth2": {
+        "clientOAuth2CallbackUrl": "/jive/oauth/callback"
+      },
+      "des" : {
+        "loginURL" : "https://%s/analytics/v1/auth/login?clientId=%s&clientSecret=%s",
+        "exportURL" : "https://%s/analytics/v2/export/activity%s",
+        "service" : "api.jivesoftware.com",
+        "clientID" : "TODO_REPLACE_ME.i",
+        "clientSecret" : "TODO_REPLACE_ME.s"
+      },
+      "app": {
+        "uuid": "6577281e-3b60-4eff-934e-e9675dcca4d3",
+        "views": {
+          "activity": "race-result"
+        }
+      },
+      "leaderboard" : {
+        "subject" : "Jive Derby - %s - Leaderboard",
+        "tags" : ["leaderboard","jive-derby","derby"]
+      },
+      "tiles": {
+        "raceActivity": {
+          "name": "JiveDerby-RaceActivity",
+          "title": "%s - #%d - Race Results",
+          "configuration-ui" : "views/configuration/raceActivity.html",
+          "mentionTemplate": "<a class=\"jive-link-profile-small jiveTT-hover-user\" data-objectid=\"%d\" data-objecttype=\"3\" href=\"%s\">%s</a>",
+          "description": "Congratulations %s for winning the Jive Derby race%s!",
+          "externalID": "jderby-%s-%d",
+          "icons": {
+            "icon16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+            "icon48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+            "icon128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+          }
+        },
+        "racePhotos": {
+          "name" : "JiveDerby-RacePhotos",
+          "title": "%s - Latest Race Photos",
+          "tileConfigHeader" : "Race Photos",
+          "maxPhotos" : 10,
+          "imageTitle" : "%s - #%d - Winner: %s @ %d sec",
+          "maxTitleLength" : 50,
+          "disableFullScreenView" : false,
+          "hideCaptions" : false,
+          "size" : "narrow",
+          "showAdditionalLink" : false,
+          "init" : {
+            "sql" : {
+              "derbyPhotos" : "SELECT r.photoURL as \"photoURL\", r.id as \"raceID\", rr.totalTimeSec as \"totalTimeSec\", rr.speed, rrr.name as \"racerName\" FROM jderby_races r, jderby_results rr, jderby_racers rrr WHERE r.id=rr.raceID AND rr.racerID=rrr.id AND rr.rank=1 AND r.derbyID=$1::text ORDER BY r.id DESC LIMIT $2"
+            }
+          }
+        },
+        "yourRaces": {
+          "name" : "JiveDerby-Your Races",
+          "title": "%s - Your Races",
+          "tileConfigHeader" : "Your Races - Configure",
+          "tileViewHeader" : "Your Races",
+          "view-ui" : "views/yourRaces.html"
+        },
+        "popularRaces": {
+          "name" : "JiveDerby-PopularRaces",
+          "title": "%s - Popular Races",
+          "tileConfigHeader" : "Popular Races",
+          "tileViewHeader" : "Popular Races (VIEW)",
+          "view-ui" : "views/popularRaces.html",
+          "lastNumberOfDays" : 4,
+          "maxRaceCount" : 10,
+          "startupDelay" : 30000,
+          "updateInterval" : 600000,
+          "desExportFilter" : "?count=10&fields=name,timestamp,activity.action,activity.actionObject.url,activity.actionObject.subject,activity.actionObject.objectId&filter=match(activity.destination.url,%s)&after=%s&filter=name(ACTIVITY_COMMENT_TILESTREAMENTRY,ACTIVITY_CREATEOUTCOME_COMMENT,ACTIVITY_CREATEOUTCOME_TILESTREAMENTRY,ACTIVITY_LIKE_COMMENT,ACTIVITY_LIKE_TILESTREAMENTRY,ACTIVITY_UNLIKE_COMMENT,ACTIVITY_UNLIKE_TILESTREAMENTRY,ACTIVITY_VIEW_TILESTREAMENTRY,ACTIVITY_SHARE_TILESTREAMENTRY)",
+          "actionPoints" : {
+            "CreateOutcome" : 2,
+            "Share" : 3,
+            "Like" : 3,
+            "Unlike" : -3,
+            "Comment" : 4,
+            "View" : 1,
+            "Default" : 1
+          }
+        },
+        "raceStats": {
+          "name" : "JiveDerby-RaceStats",
+          "title": "%s - Race Stats",
+          "tileConfigHeader" : "Race Stats",
+          "timeStatValue" : "%d secs",
+          "action-ui" : "views/action/raceStats.html",
+          "raceHistoryMaxCount" : 30,
+          "sql" : {
+            "getRaceStats" : "SELECT count(distinct rr.raceID) AS \"numRaces\", count(distinct rr.racerID) AS \"numRacers\", min(rr.totalTimeSec) AS \"fastestTimeSec\", round(avg(rr.totalTimeSec),4) AS \"averageTimeSec\", (select jiveurl from jderby_races where jiveurl is not null ORDER by id DESC LIMIT 1) AS \"lastRaceURL\" FROM jderby_results rr, jderby_races r, jderby_derbies d WHERE d.id=r.derbyID AND r.id=rr.raceID AND r.derbyID=$1::text AND rr.isActive=true",
+            "initRaceTimeHistory": "SELECT row_to_json(t) as \"json\" FROM (  SELECT r.id as \"raceID\", (  SELECT array_to_json(array_agg(row_to_json(rr)))  FROM ( SELECT lane, speed, totaltimesec as \"totalTimeSec\" FROM jderby_results WHERE raceID=r.id  ORDER BY lane asc ) rr ) as results, ( SELECT array_to_json(array_agg(row_to_json(m))) FROM ( SELECT timestamp, type, value, unit  FROM jderby_measurements  WHERE raceID=r.id  ) m ) as measurements, r.split1, r.split2, r.split3, r.split4, r.timestamp FROM jderby_races r WHERE derbyID=$1::text ORDER BY r.id DESC LIMIT $2::int) as t"
+          },
+          "labels" : {
+            "derby" : "Derby",
+            "numRaces" : "# of Races",
+            "numRacers" : "# of Racers",
+            "fastestTimeSec" : "Fastest Time",
+            "averageTimeSec" : "Average Time",
+            "leaderboard" : "Leaderboard",
+            "leaderboardLink" : "View Leaders",
+            "lastRace" : "Last Race",
+            "lastRaceLink" : "View Details",
+            "actionLink" : "View Snapshot"
+          }
+        },
+        "topRacers": {
+          "name" : "JiveDerby-TopRacers",
+          "title": "%s - Top Racers",
+          "tileConfigHeader" : "Top Racers",
+          "action-ui" : "views/action/topRacers.html",
+          "topRacersSQL" : "SELECT rrr.id as \"racerID\", rrr.avatarURL as \"avatarURL\", rrr.profileURL as \"profileURL\", rrr.name as \"racerName\", rr.totalTimeSec as \"fastestTimeSec\", (SELECT COUNT(DISTINCT raceID) FROM jderby_results WHERE isActive=true AND racerID=rr.racerID) as \"numRaces\" FROM jderby_results rr, jderby_racers rrr, jderby_races r WHERE rr.racerID=rrr.id AND r.id=rr.raceID AND rr.isPrimary=true AND r.derbyID=$1::text ORDER BY rr.totalTimeSec LIMIT $2::int",
+          "fastestTimeLbl" : "Fastest Time: %d secs",
+          "numRacesLbl" : "# of Races: %d",
+          "viewFullLeaderboardLbl" : "View Full Leaderboard",
+          "maxRacers" : 10
+        },
+        "addon": {
+          "tileConfigHeader" : "Jive Derby - System Configure",
+          "tileViewHeader" : "Jive Derby - System Configure",
+          "configuration-ui" : "views/configuration/addon.html"
+        },
+        "shared": {
+          "tileConfigHeader" : "Jive Derby",
+          "tileViewHeader" : "Jive Derby",
+          "configuration-ui" : "views/configuration/default.html",
+          "action-ui" : "views/action/default.html",
+          "view-ui" : "default.html"
+        }
+      }
+    },
+    "aws": {
+      "s3": {
+        "webURL": "https://TODO_YOUR_HOSTNAME_WHERE_YOU_WILL_STORE_RACE_PHOTOS.com/%s",
+        "noPhotoImage": "%s/photos/no-photo.png",
+        "bucket": "jive-derby",
+        "location": "us-west-2",
+        "defaultStorage": "STANDARD",
+        "policy": "{ \"Version\":\"2012-10-17\", \"Statement\":[ { \"Sid\":\"AddPerm\", \"Effect\":\"Allow\", \"Principal\": \"*\", \"Action\":[\"s3:GetObject\"], \"Resource\":[\"arn:aws:s3:::%s/*\"] } ] }",
+        "websiteConfig ": {
+          "IndexDocument": {
+            "Suffix": "index.html"
+          },
+          "ErrorDocument": {
+            "Key": "error.html"
+          }
+        },
+        "defaultFiles": "/resources/s3"
+      },
+      "iot": {
+        "thing": {
+          "name": "TODO_REPLACE_WITH_AWS_IOT_DEVICE_NAME",
+          "host": "TODO_REPLACE_TO_MATCH_AWS_IOT_CONFIG.iot.us-east-1.amazonaws.com"
+        }
+      }
+    },
+    "defaults": {
+      "races": {
+        "diagnosticMode": true,
+        "resultCount": 10,
+        "sortOrder": "DESC"
+      },
+      "measurements" : {
+        "units" : {
+          "humidity" : "%",
+          "temperature" : "F",
+          "uv" : "",
+          "ambient-light" : "lux",
+          "distance" : "ft",
+          "sound-level" : "dBA",
+          "pressure" : "inHg"
+        }
+      },
+      "derbies": {
+        "onlyActive": true,
+        "onlyPublic": true,
+        "resultCount": 10,
+        "sortOrder": "ASC"
+      },
+      "leaderboard": {
+        "onlyActive": true,
+        "onlyPrimary": true,
+        "onlyUnassigned" : false,
+        "includeMarkup": false,
+        "resultCount": 5,
+        "delayPushToJiveMs": 30000
+      },
+      "echoClients" : {
+        "maxFailCount" : 3
+      },
+      "randomRacers" : [
+        {
+          "id" : 7929,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7929",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-chicken",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7929/avatar",
+          "username" : "lego-chicken",
+          "name" : "Lego Chicken",
+          "company" : "Brick Egg Media",
+          "title" : "Field Promotions Manager"
+        },
+        {
+          "id" : 7930,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7930",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-colonial",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7930/avatar",
+          "username" : "lego-colonial",
+          "name" : "Lego Colonial Solider",
+          "company" : "Lego Army",
+          "title" : "Staff Sergeant, First Class"
+        },
+        {
+          "id" : 7931,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7931",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-elf",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7931/avatar",
+          "username" : "lego-elf",
+          "name" : "Lego Elf",
+          "company" : "North Pole Manufacturing",
+          "title" : "Lead Package Designer"
+        },
+        {
+          "id" : 7932,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7932",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-hotdog",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7932/avatar",
+          "username" : "lego-hotdog",
+          "name" : "Lego Hot Dog",
+          "company" : "Where's The Beef, Inc.",
+          "title" : "Sr. Field Promotions Manager"
+        },
+        {
+          "id" : 7933,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7933",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-lord-biz",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7933/avatar",
+          "username" : "lego-lord-biz",
+          "name" : "Lego Lord Business",
+          "company" : "Octan Corporation",
+          "title" : "President, CEO"
+        },
+        {
+          "id" : 7934,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7934",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-mechanic",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7934/avatar",
+          "username" : "lego-mechanic",
+          "name" : "Lego Mechanic",
+          "company" : "Bricks Bikes & Hot Rods",
+          "title" : "Speed Research, Director"
+        },
+        {
+          "id" : 7935,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7935",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-scientist",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7935/avatar",
+          "username" : "lego-scientist",
+          "name" : "Lego Scientist",
+          "company" : "Brickonetics",
+          "title" : "Research, Director"
+        },
+        {
+          "id" : 7936,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7936",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-sea-captain",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7936/avatar",
+          "username" : "lego-sea-captain",
+          "name" : "Lego Sea Captain",
+          "company" : "Brick Boats Unlimited",
+          "title" : "Captain"
+        },
+        {
+          "id" : 7937,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7937",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-tennis-ace",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7937/avatar",
+          "username" : "lego-tennis-ace",
+          "name" : "Lego Tennis Ace",
+          "company" : "Brick Sports Worldwide",
+          "title" : "Sr. Instructor"
+        },
+        {
+          "id" : 7938,
+          "uri" : "https://sandbox.jiveon.com/api/core/v3/people/7938",
+          "profileURL" : "https://sandbox.jiveon.com/people/lego-warrior",
+          "avatarURL" : "https://sandbox.jiveon.com/api/core/v3/people/7938/avatar",
+          "username" : "lego-warrior",
+          "name" : "Lego Warrior",
+          "company" : "Amazons",
+          "title" : "Chieftain"
+        }
+      ]
+    },
+    "pg-db-config": {
+      "max": "10",
+      "idleTimeoutMillis": 30000
+    }
+  },
+  "forPropertyDocumentation": "https://community.jivesoftware.com/docs/DOC-103487"
+}
