@@ -1,0 +1,97 @@
+<html>
+<head>
+  <!-- STYLES -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.1/featherlight.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="stylesheets/profile-races.css" type="text/css" media="screen" />
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.1/featherlight.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <!-- NOT NEEDED IF USING <Require feature="jive-core-v3-resolver"/> in app.xml -->
+  <!-- <script type="text/javascript" charset="utf-8" src="javascripts/coreapi-context-resolver-v3.js"></script> -->
+  <script type="text/javascript" charset="utf-8" src="javascripts/profile-races-app.js"></script>
+  <!-- NOTE: main.js SHOULD RUN LAST -->
+  <script type="text/javascript" charset="utf-8" src="javascripts/main.js"></script>
+</head>
+
+<script type="text/template" id="race-tile-template">
+  <div class="race-tile" data-contentid="{{content.id}}" data-extprops="/api/core/v3/contents/{{content.id}}/extprops">
+    <span class="nav-derbyName">{{derby.name}}</span>
+    <span class="nav-raceName">{{race.name}}</span>
+    <span class="nav-raceTime">{{race.time}}</span>
+  </div>
+</script>
+
+<script type="text/template" id="race-details-template">
+    <h2>{{derby.name}} : #{{race.id}}</h2>
+
+    <div align="center" class="race-photo">
+      <a href="{{race.photoURL}}" data-featherlight="image"><img id="race-img" src="{{race.photoURL}}" /></a>
+    </div>
+    <div class="table-responsive">
+      <a id="toggle-control" href="javascript:void(0);">Toggle to <span id="toggle-type">Measurements</span></a>
+      <div id="race-results-wrapper">
+        <h4>Race Results</h2>
+        <table id="race-results" class="table table-hover">
+          <thead class="thead-jderby">
+            <tr>
+              <th class="text-center col-md-1">Rank</th>
+              <th class="col-md-6">Racer</th>
+              <th class="text-center col-md-1">Lane</th>
+              <th class="text-center col-md-1">Time (sec)</th>
+              <th class="text-center col-md-2">Speed (ft/sec)</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <div id="measurements-wrapper" style="display: none;">
+        <h4>Environmental Measurements</h2>
+        <ul id="measurements"></ul>
+      </div>
+    </div>
+
+    <div id="footer" align="center">
+      <a class="btn btn-primary" href="{{content.url}}" target="_blank">View Full Results</a>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="race-result-template">
+  <tr class="rank-{{result.rank}}" data-racer="{{racer.id}}">
+    <td class="text-center">{{result.rank}}</td>
+    <td class="">
+      <img align="left" class="racerAvatar" src="{{racer.avatarURL}}" />
+    </td>
+    <td class="text-center">{{result.lane}}</td>
+    <td class="text-center">{{result.totalTimeSec}}</td>
+    <td class="text-center">{{result.speed}}</td>
+  </tr>
+</script>
+
+<script type="text/template" id="measurement-template">
+    <li><label>{{measurement.label}}:</label> {{measurement.value}} {{measurement.unit}}</li>
+</script>
+
+<body>
+  <div id="main-wrapper">
+    <h2 id="title" style="display: none;">Jive Derby Races</h2>
+    <div id="race-nav">
+        <div align="center">
+          <img id="racer-avatar" alt="Racer #{{racer.id}}" class="avatar" style="display: none;" />
+        </div>
+    </div>
+    <div id="race-details-wrapper">
+      <div id="race-loading" align="center">
+        <img src="images/loading.gif" width="200" height="200" alt="Loading..."/>
+      </div>
+      <div id="race-details" style="display: none"></div>
+    </div>
+  </div>
+</body>
+
+</html>

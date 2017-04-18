@@ -1,0 +1,20 @@
+{
+    "sampleData": {
+        "races" : [],
+        "status" : "Waiting..."
+    },
+    "displayName" : "Jive Derby - Popular Races",
+    "name" : "JiveDerby-PopularRaces",
+    "description" : "This tile displays informaton about the most popular races",
+    "style": "CUSTOM_VIEW",
+    "displayWidth" : "ALL",
+    "pageTypes" : [ "PLACE" ],
+    "icons" : {
+        "16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+        "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+        "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+    },
+    "config": "/tiles-shared/configure?tile=popularRaces&features=responsive,tile,core-v3,os-2.5",
+    "view": "/tiles-shared/view?tile=popularRaces&features=responsive,tile,core-v3,os-2.5",
+    "action": "/tiles-shared/action?tile=popularRaces&features=responsive,tile,core-v3,os-2.5"
+}

@@ -1,0 +1,22 @@
+{
+    "sampleData": {
+        "title": "Jive Derby - Race Stats",
+        "contents": [
+            {
+                "name": "Waiting",
+                "value": "..."
+            }
+        ]},
+    "displayWidth": "NARROW",
+    "displayName" : "Jive Derby - Race Stats",
+    "name" : "JiveDerby-RaceStats",
+    "description" : "This style will display some high-level Jive Derby race stats.",
+    "style": "TABLE",
+    "icons" : {
+        "16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+        "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+        "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+    },
+    "config": "/tiles-shared/configure?tile=raceStats&features=responsive,tile,core-v3,os-2.5",
+    "action": "/tiles-shared/action?tile=raceStats&features=responsive,tile,core-v3,os-2.5"
+}

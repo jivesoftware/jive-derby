@@ -1,0 +1,41 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/configuration/default.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+</head>
+<body>
+
+<div id="main-wrapper" class="default-config-wrapper j-card">
+    <h4>Jive Derby - {{tileHeader}} Configuration</h4>
+
+    <div id="current-config-wrapper" class="bg-success" style="display: none">
+      Current Derby: <span id="current-config"></span>
+    </div>
+
+    <div id="select-derby-wrapper" style="display: none">
+      <div class="form-group">
+        <label for="derbyList">Which Jive Derby place would you like to use?</label>
+        <select id="derbyList" class="form-control selectpicker">
+          <option value="">-------</option>
+        </select>
+      </div>
+
+      <div id="status-message-wrapper" class="bg-info" style="display: none">
+        <span id="status-msg"></span>
+      </div>
+
+      <button id="btn_save" class="btn btn-primary btn-lg btn-block">Save</button>
+    </div>
+
+</div>
+
+</body>
+</html>

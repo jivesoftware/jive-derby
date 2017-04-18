@@ -1,0 +1,43 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/action/{{tileName}}.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+</head>
+<body>
+
+<div id="main-wrapper" class="raceStats-action-wrapper j-card">
+    <h3>{{tileHeader}}</h3>
+    <div id="loading-wrapper">
+      <img src="images/loading.gif" />
+    </div>
+    <div id="no-data-wrapper" style="display: none;">
+      <p class="bg-warning">No derby snapshot stats are currently available, please allow time for them to collect.</p>
+    </div>
+    <div id="stats-wrapper" style="display: none;">
+      <div id="stats-nav">
+        <ul>
+          <li><a class="nav-item" data-report="time" href="javascript:void(0);" style="display: none;">Times</a></li>
+          <li><a class="nav-item" data-report="speed" href="javascript:void(0);"style="display: none;">Speed</a></li>
+          <li><a class="nav-item" data-report="splits" href="javascript:void(0);" style="display: none;">Splits</a></li>
+          <li><a class="nav-item" data-report="measurement-microphone" href="javascript:void(0);" style="display: none;">Sound</a></li>
+          <li><a class="nav-item" data-report="measurement-temperature" href="javascript:void(0);" style="display: none;">Temperature</a></li>
+          <li><a class="nav-item" data-report="measurement-humidity" href="javascript:void(0);" style="display: none;">Humidity</a></li>
+        </ul>
+      </div>
+      <h3 id="chartHeader">...</h3>
+      <canvas id="raceHistoryChart" width="400" height="400"></canvas>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/view/{{tileName}}.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+</head>
+<body>
+
+<div id="main-wrapper" class="yourRaces-wrapper j-card">
+  <h2>{{tileHeader}}</h2>
+  <div id="loading-wrapper">
+    <img src="images/loading.gif" />
+  </div>
+  <div id="no-data-wrapper" style="display: none;">
+    <p class="bg-info">No race data found.</p>
+  </div>
+  <div id="races-wrapper" style="display: none;">
+    <ul id="race-list"></ul>
+  </div>
+</div>
+</body>
+<!-- USED TO PREVENT MUSTACHE FOR JACKING WITH THE TEMPLATE TAGS -->
+{{=<% %>=}}
+<script type="text/template" id="race-item-template">
+  <li class="race-item" data-contentid="{{content.id}}">
+    <a href="{{content.url}}" target="_parent">{{derby.name}} {{race.name}}</a><br/>
+    <span class="race-time">{{race.time}}</span>
+  </li>
+</script>
+</html>

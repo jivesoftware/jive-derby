@@ -1,0 +1,18 @@
+
+#main-wrapper { width: 800px; min-height: 700px; max-height: 760px; }
+#race-nav { float: left; width: 200px; min-height: 700px; max-height: 760px;  margin: 0px; border: 1px solid #9d9d9d; overflow-y: auto; }
+  #racer-avatar { margin: 2px 2px 12px 2px; }
+  #race-tiles { width: 100%; min-height: 600px; }
+  .race-tile { width: 100%; display: block; padding: 8px; }
+    .nav-derbyName { font-weight: bold; }
+    .nav-raceName {  }
+    .nav-raceTime { display: block; }
+
+#race-details-wrapper { float: left; background-color: #efefef; width: 600px; margin: 0px; min-height: 700px; max-height: 760px;
+                        border-top: 1px solid #9d9d9d; border-right: 1px solid #9d9d9d; border-bottom: 1px solid #9d9d9d; }
+
+  #race-details { padding: 4px 8px 8px 8px;  }
+    #toggle-control { float: right; margin: 2px 2px 8px 8px; }
+    .race-photo { height : 200px; }
+    #race-details .race-photo img { height: 200px; margin: 0px; }
+    #measurements-wrapper { margin-bottom: 16px; }

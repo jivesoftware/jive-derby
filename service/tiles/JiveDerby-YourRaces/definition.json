@@ -1,0 +1,17 @@
+{
+    "displayName" : "Jive Derby - Your Races",
+    "name" : "JiveDerby-YourRaces",
+    "description" : "A simple tile allows viewers to view links to their most recent races.",
+    "style": "CUSTOM_VIEW",
+    "displayWidth" : "NARROW",
+    "dataProviderKey": "internal",
+    "pageTypes" : [ "PLACE" ],
+    "icons" : {
+        "16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+        "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+        "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+    },
+    "config": "/tiles-shared/configure?tile=yourRaces&features=responsive,tile,core-v3,os-2.5",
+    "view": "/tiles-shared/view?tile=yourRaces&features=responsive,tile,core-v3,os-2.5",
+    "action": "/tiles-shared/action?tile=yourRaces&features=responsive,tile,core-v3,os-2.5"
+}

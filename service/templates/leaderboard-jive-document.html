@@ -1,0 +1,25 @@
+<body>
+  <table border="1" class="jiveBorder" style="border: 1px solid #c6c6c6; width: 900px;" width="900">
+  <tbody>
+    <tr>
+      <th width="50" style="width: 50px; text-align: center; background-color: #f2f2f2; color: #505050; padding: 4px;"><strong>&#35;</strong></th>
+      <th width="400" style="width: 200px; text-align: center; background-color: #f2f2f2; color: #505050; padding: 4px;"><strong>Racer Information</strong></th>
+      <th width="85" style="width: 150px; text-align: center; background-color: #f2f2f2; color: #505050; padding: 4px;"><strong>Time<br/>(seconds)</strong></th>
+      <th width="85" style="width: 150px; text-align: center; background-color: #f2f2f2; color: #505050; padding: 4px;"><strong>Speed<br/>(ft/sec)</strong></th>
+      <th width="120" style="width: 190px; text-align: center; background-color: #f2f2f2; color: #505050; padding: 4px;"><strong>Race Details</strong></th>
+    </tr>
+    {{#results}}
+    <tr>
+      <td style="width: 50px; text-align: center; padding: 4px;">{{rank}}</td>
+      <td style="width: 500px;"><p style="padding-top: 12px;"><img alt="avatar" class="image-1 jive-image" src="{{racer.avatarURL}}" style="height: 48px; float: left;" /><span
+            style="font-size: 10pt;"><strong><a href="{{{racer.profileURL}}}">{{racer.name}}</a></strong></span><br/><span
+            style="font-size: 10pt;">{{racer.company}}{{^racer.company}}N/A{{/racer.company}}</span><br/><span
+            style="font-size: 8pt;">{{racer.title}}{{^racer.title}}N/A{{/racer.title}}</span></p></td>
+      <td style="width: 85px; text-align: center; padding: 4px;">{{totalTimeSec}}</td>
+      <td style="width: 85px; text-align: center; padding: 4px;">{{speed}}</td>
+      <td style="width: 120px; text-align: center; padding: 4px;">{{#jiveURL}}<a target="jderby-race-result" href="{{{jiveURL}}}">&nbsp;&nbsp;View Details</a>{{/jiveURL}}</td>
+    </tr>
+    {{/results}}
+  </tbody>
+  </table>
+</body>

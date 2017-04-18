@@ -1,0 +1,50 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="javascripts/oauth2client.js"></script>
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/configuration/{{tileName}}.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+
+</head>
+<body>
+
+  <div id="main-wrapper" class="raceActivity-config-wrapper j-card">
+    <h2>Configuration</h2>
+
+    <div id="grant-access-panel" class="form-group" style="display: none;">
+      <button type="button" id="grant-button" class="btn btn-default btn-lg btn-block" style="display: none;">Grant Access to Jive</button>
+      <br/>
+      <p><strong>Jive Derby</strong> requires API access to access user details for the Race Management app.
+          You only need to do this once.  If you are able to read profile field values for your racers in the Race Manager, you are good to good to go.
+      </p>
+    </div>
+    <div id="addon-configured" class="form-group" style="display: none;">
+      <p class="bg-success"><strong>Jive Derby</strong> is configured with API Access.</p>
+    </div>
+
+    <div id="select-derby-wrapper" style="display: none">
+      <div class="form-group">
+        <label for="derbyList">Which Jive Derby activities would you like to include in this place?</label>
+        <select id="derbyList" class="form-control selectpicker"></select>
+      </div>
+
+      <div class="checkbox">
+          <label>
+            <input id="onlyLive" type="checkbox" value="true" checked="checked" name="onlyLive"> Only Live Activity - <small>Only include LIVE activity.  No diagnostic activity</small>
+          </label>
+      </div>
+
+      <button id="btn_save" class="btn btn-primary btn-lg btn-block">Save</button>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+    "name": "jive-derby-service",
+    "version": "0.0.1",
+    "description": "Runs the cloud service that receives Jive Derby race results and manages the Jive content life-cycle.",
+    "private": true,
+    "main": "app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "prestart": "npm install",
+      "start": "set NODE_ENV=development && node app.js"
+    },
+    "author": "Jive Developers (Open Source) <jivedev@jivesoftware.com>",
+    "contributors": [
+      "Ryan Rutan <ryan.rutan@jivesoftware.com>"
+    ],
+    "license": "(MIT OR Apache-2.0)",
+    "private": true,
+    "engines": {
+      "node": ">=6.0.0"
+    },
+    "dependencies": {
+        "express": "4.14.0",
+        "body-parser": "1.15.2",
+        "method-override": "2.3.6",
+        "errorhandler": "1.4.3",
+        "uuid" : "3.0.1",
+        "serve-favicon": "2.3.0",
+        "jive-sdk":"*",
+        "jive-persistence-postgres" : "*",
+        "multer":"1.2.0",
+        "consolidate": "0.14.1",
+        "q": "1.4.1",
+        "request": "^2.74.0",
+        "cors" : "2.8.1",
+        "pg" : "6.1.0",
+        "mime-types" : "2.1.13",
+        "aws-sdk" : "*",
+        "uuid" : "3.0.1",
+        "url-parse" : "1.1.7",
+        "node-cache" : "4.1.1"
+    }
+}

@@ -1,0 +1,67 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/view/{{tileName}}.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+</head>
+<body>
+
+<div id="main-wrapper" class="popularRaces-wrapper j-card">
+  <h4>Popular Races</h4>
+  <div id="loading-wrapper">
+    <img src="images/loading.gif" />
+  </div>
+  <div id="no-popular-data-wrapper" style="display: none;">
+    <p class="bg-warning">No popular race data is currently available, please allow time for analysis.</p>
+  </div>
+  <div id="races-wrapper" style="display: none;">
+    <table id="race-results" class="table table-hover table-condensed">
+      <thead class="thead-jderby">
+        <tr>
+          <th class="text-left col-sm-6">Race #</th>
+          <th class="text-center col-sm-1"><img src="images/view-icon.png" alt="View" /></th>
+          <th class="text-center col-sm-1"><img src="images/like-icon.png" alt="Like" /></th>
+          <th class="text-center col-sm-1"><img src="images/share-icon.png" alt="Shares" /></th>
+          <th class="text-center col-sm-1"><img src="images/comments-icon.png" alt="Comments" /></th>
+          <th class="text-center col-sm-1"><img src="images/outcome-icon.png" alt="Outcomes" /></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+<!-- USED TO PREVENT MUSTACHE FOR JACKING WITH THE TEMPLATE TAGS -->
+{{=<% %>=}}
+<script type="text/template" id="race-row-template">
+  <tr>
+    <td class="text-left">
+      <a class="race-link" href="{{race.url}}" target="_parent"><span class="race-glyph"></span>{{race.label}}</a>
+    </td>
+    <td class="text-center stat-column">
+      {{race.numViews}}
+    </td>
+    <td class="text-center stat-column">
+      {{race.numLikes}}
+    </td>
+    <td class="text-center stat-column">
+      {{race.numShares}}
+    </td>
+    <td class="text-center stat-column">
+      {{race.numComments}}
+    </td>
+    <td class="text-center stat-column">
+      {{race.numOutcomes}}
+    </td>
+  </tr>
+</script>
+</html>

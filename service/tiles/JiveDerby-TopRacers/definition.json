@@ -1,0 +1,25 @@
+{
+    "sampleData" : {
+        "title" : "Jive Derby - Top Racers",
+        "contents" : [
+          { "icon" : "https://developer.jivesoftware.com/jive-derby/icon128.png",
+             "text" : "Waiting..."
+          }
+        ],
+        "config" : {
+               "listStyle" : "peopleList"
+        }
+    },
+    "displayWidth": "NARROW",
+    "displayName" : "Jive Derby - Top Racers",
+    "name" : "JiveDerby-TopRacers",
+    "description" : "This tile will display the Top Racers for the Jive Derby",
+    "style" : "LIST",
+    "icons" : {
+        "16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+        "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+        "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+    },
+    "config": "/tiles-shared/configure?tile=topRacers&features=responsive,tile,core-v3,os-2.5",
+    "action": "/tiles-shared/action?tile=topRacers&features=responsive,tile,core-v3,os-2.5"
+}

@@ -1,0 +1,12 @@
+{
+    "displayName" : "Jive Derby - Race Activity",
+    "name" : "JiveDerby-RaceActivity",
+    "description" : "This activity stream will create activity from the Jive Derby",
+    "style" : "ACTIVITY",
+    "icons" : {
+        "16": "https://developer.jivesoftware.com/jive-derby/icon16.png",
+        "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
+        "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
+    },
+    "config": "/tiles-shared/configure?tile=raceActivity&features=responsive,tile,core-v3,os-2.5,oauth"
+}

@@ -1,0 +1,30 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var HOST = "{{{host}}}";
+  </script>
+  <script src="javascripts/action/{{tileName}}.js"></script>
+  <script src="javascripts/main.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+</head>
+<body>
+
+  <div id="main-wrapper" class="topRacers-action-wrapper j-card">
+    <div id="loading-wrapper">
+      <img src="images/loading.gif" />
+    </div>
+    <div id="no-data-wrapper" style="display: none;">
+      <p class="bg-info">No race data found.</p>
+    </div>
+    <div id="leaderboard-wrapper">
+      <img src="https://developer.jivesoftware.com/jive-derby/images/loading.gif"/>
+    </div>
+  </div>
+
+
+</body>
+</html>

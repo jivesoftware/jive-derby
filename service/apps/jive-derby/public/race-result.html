@@ -1,0 +1,90 @@
+<html>
+<head>
+  <!-- STYLES -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.1/featherlight.min.css">
+  <link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.1/featherlight.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <!-- NOT NEEDED IF USING <Require feature="jive-core-v3-resolver"/> in app.xml -->
+  <!-- <script type="text/javascript" charset="utf-8" src="javascripts/coreapi-context-resolver-v3.js"></script> -->
+  <script type="text/javascript" charset="utf-8" src="javascripts/race-result-app.js"></script>
+  <!-- NOTE: main.js SHOULD RUN LAST -->
+  <script type="text/javascript" charset="utf-8" src="javascripts/main.js"></script>
+</head>
+
+<script type="text/template" id="winner-hero-template">
+  <div class="race-stats">
+    <span class="derbyName">{{derby.name}}</span>
+    <span class="raceName">{{race.name}}</span>
+    <span class="raceDate">{{race.date}}</span>
+    <span class="raceTime">{{race.time}}</span>
+    <span id="raceMode" style="display: none;">DIAGNOSTIC RUN</span>
+  </div>
+  <div class="winner-headshot">
+    <img src="{{racer.avatarURL}}" />
+  </div>
+  <div class="winner-details">
+    <span class="winnerName"><a target="jderby" href="{{racer.profileURL}}">{{racer.name}}</a></span>
+    <span class="winnerTitle">{{racer.title}}</span>
+    <span class="winnerCompany">{{racer.company}}</span>
+    <span class="winnerTime"><label>Winning Time:</label>{{result.totalTimeSec}} seconds</span>
+  </div>
+</script>
+
+<script type="text/template" id="race-result-template">
+  <tr class="rank-{{result.rank}}">
+    <td class="text-center">{{result.rank}}</td>
+    <td class="">
+      <img align="left" class="racerAvatar" src="{{racer.avatarURL}}" />
+      <span class="racerName"><a target="jderby" data-racerid="{{racer.uri}}" href="{{racer.profileURL}}">{{racer.name}}</a></span>
+      <span class="racerCompany">{{racer.company}}</span>
+    </td>
+    <td class="text-center">{{result.lane}}</td>
+    <td class="text-center">{{result.totalTimeSec}}</td>
+    <td class="text-center">{{result.speed}}</td>
+  </tr>
+</script>
+<script type="text/template" id="measurement-template">
+    <li><label>{{measurement.label}}:</label> {{measurement.value}} {{measurement.unit}}</li>
+</script>
+
+<body>
+
+  <div id="main-wrapper" style="display: none;">
+
+    <h2>Winner</h2>
+    <div class="winner-hero"></div>
+
+    <h2>Race Photo</h2>
+    <div align="center" class="race-photo">
+      <a data-featherlight="image"><img id="race-img" /></a>
+    </div>
+
+    <h2>Racers</h2>
+    <div class="table-responsive">
+      <table id="race-results" class="table table-hover">
+        <thead class="thead-jderby">
+          <tr>
+            <th class="text-center col-md-1">Rank</th>
+            <th class="col-md-6">Racer</th>
+            <th class="text-center col-md-1">Lane</th>
+            <th class="text-center col-md-1">Time (sec)</th>
+            <th class="text-center col-md-2">Speed (ft/sec)</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Measurements</h2>
+    <ul id="measurements"></ul>
+  </div>
+
+</body>
+
+</html>

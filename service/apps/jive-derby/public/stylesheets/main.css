@@ -1,0 +1,33 @@
+#main-wrapper {}
+#raceMode {}
+
+.winner-hero { display: block; margin-bottom: 24px; height: 128px; width: 100%; background-image: url("../images/checkered-bg.png");  background-size: 960px 540px; background-position: left; background-repeat: repeat-x; }
+  .race-stats { float: right; height: 100%; background-color: #efefef; padding: 12px; }
+    .derbyName, .raceName, .raceDate, .raceTime { display: block; }
+    .derbyName { font-weight: bold; font-size: 1.3em; }
+    .raceName { font-size: 1.1em; }
+    .raceDate, .raceTime { font-size: 1em; }
+    .raceMode { font-size: .8em; }
+
+  .winner-headshot { float: left; height: 100%; background-color: white; }
+  .winner-details { float: left; padding: 8px; }
+    .winnerName { font-weight: bold; font-size: 1.5em; }
+    .winnerCompany { font-size: 1.2em; }
+    .winnerTitle { font-size: 1.3em; }
+    .winnerTime { font-size: 1.0em; margin-top: 8px; }
+    .winnerTime label { font-weight: bold; padding-right: 4px; }
+    .winnerName, .winnerTitle, .winnerCompany, .winnerTime { display: block; }
+
+.race-photo { background-color: #5d5d5d; width: 100%; height: 360px; margin-bottom: 24px; }
+  #race-img { height: 360px; margin: 0px; }
+  .racerAvatar { width: 48px; border-radius: 50%; margin-right: 12px;  }
+  .racerName, .racerCompany { display: block; }
+  .racerName { font-size: 1.1em; font-weight: bold; }
+  .racerCompany { font-size: .9em; }
+
+#race-results { width: 100%; }
+  .thead-jderby { background-color: #efefef; color: #9d9d9d; }
+
+#measurements { list-style: none; margin: 0px; padding: 0px; }
+#measurements li { width: 180px; display: inline-block; margin-top: 12px; margin-right: 48px; font-size: .95em; }
+#measurements label { font-weight: bold; }

@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>Jive Derby - How to Play</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="./images/favicon_64.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style type="text/css">
+      #racer-header { font-size: .95em; }
+      #racer-header img { width: 320px; }
+      #racer-header label { font-size: 2.0em; }
+      .leaderboard-lastupdated { font-weight: bold; font-style: italic; }
+      #leaderboard-data tbody tr td img { width: 64px; padding-right: 8px; }
+      table thead { display: none; }
+      td.racer-rank { font-weight: bold; }
+      td.rank-1 { background-color: #0088e1 !important; color: white; }
+      td.rank-2 { background-color: #d0118c !important;  color: white; }
+      td.rank-3 { background-color: #00c4dc !important;  color: white; }
+      .time-result { font-weight: bold; }
+      td.racer-details { font-size: .9em; }
+      td.racer-times { font-size: .9em; }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script type="text/javascript">
+      function getParam(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null){
+           return null;
+        }
+        else{
+           return decodeURI(results[1]) || 0;
+        }
+      } // end function
+
+      $(function() {
+          var derbyID = getParam("derby");
+          var HOST = "https://jivederby.jivesoftware.com";
+          var currentUserID = getParam("userID");
+
+          function fillTemplate(templateID,data) {
+            var template = $('#'+templateID).html();
+            Object.keys(data).forEach(
+              function(key) {
+                Object.keys(data[key]).forEach(
+                  function(prop) {
+                    template = template.replace(new RegExp("{{"+key+"."+prop+"}}","g"),data[key][prop]);
+                  } // end function
+                );
+              } // end function;
+            );
+            return template;
+          } // end replaceTemplate
+
+          function displayLeaderboard(result,status,xhr) {
+            //console.log('****',result,status,xhr);
+            var leaderboardData = result["data"];
+            $('.leaderboard-lastupdated').html('Last Updated: '+moment(new Date(leaderboardData["timestamp"])).fromNow());
+            $('#racer-header label').html(leaderboardData["derby"]["name"]);
+
+            leaderboardData["results"].forEach(
+              function(result) {
+                //console.log('***',result);
+                $('#leaderboard-data tbody').append(fillTemplate('race-result-template',{ "racer" : result["racer"], "result" : result }));
+              } // end function
+            );
+
+            /*** MARK THE CURRENT USER IN RESULTS (IF EXISTS) ***/
+            $('tr.racer-'+currentUserID).addClass('active');
+
+            $('#leaderboard-loading').hide();
+            $('#leaderboard-wrapper').slideDown('fast');
+          } // end function
+
+          function errorLeaderboard(xhr,status,error) {
+            console.log('****','ERROR',xhr,status,error);
+            $('#leaderboard-loading').hide();
+            $('#leaderboard-nodata').slideDown('fast');
+          } // end function
+
+          $.ajax({
+              'url': HOST + "/api/derby/"+derbyID+'/leaderboard?ts='+ new Date().getTime(),
+              headers: { 'Content-Type': ['application/json'] },
+              success: displayLeaderboard,
+              error: errorLeaderboard
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="racer-header" align="center" class="bg-info">
+      <img src="./images/jive-derby-logo.png" /><br/>
+      <label></label>
+    </div>
+    <div id="leaderboard-loading" align="center">
+      <img src="./images/loading.gif" width="128"/>
+      <p>Loading</p>
+    </div>
+    <div id="leaderboard-wrapper" class="table-responsive" style="display: none;">
+      <table id="leaderboard-data" class="table table-hover table-condensed">
+        <thead class="thead-jderby">
+          <tr>
+            <th class="text-center col-xs-1"></th>
+            <th class="col-xs-9"></th>
+            <th class="text-center col-xs-2"></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="leaderboard-footer" align="center">
+        <span class="leaderboard-lastupdated"></span>
+    </div>
+    <div id="leaderboard-nodata" class="table-responsive" align="center" style="display: none;">
+      <p></p>
+      <p>No leaderboard data was found for this derby.  Please try back again later.</p>
+      <p></p>
+    </div>
+    </body>
+    <script type="text/template" id="race-result-template">
+      <tr class="racer-{{racer.id}}">
+        <td class="racer-rank rank-{{result.rank}} text-center">{{result.rank}}</td>
+        <td class="racer-details text-left">
+          <img align="left" class="racerAvatar" src="{{racer.avatarURL}}" />
+          <span class="racerName"><a target="jderby" data-racerid="{{racer.id}}" href="{{racer.profileURL}}">{{racer.name}}</a></span><br/>
+          <span class="racerCompany">{{racer.company}}</span>
+        </td>
+        <td class="racer-times text-center"><span class="time-result">{{result.totalTimeSec}}</span> sec <br/> <span class="time-result">{{result.speed}}</span> ft/sec</td>
+      </tr>
+    </script>
+</html>

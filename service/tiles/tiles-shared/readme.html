@@ -1,0 +1,7 @@
+Note:  This directory is available to show how you can create a single asset directory, and then use
+the SDK's directory structure > definition.json for each Tile to reference the assets in another folder.
+
+Common scenario is that you have an add-on with a lot of Tiles, but you want to single source HTML/CSS/JS assets (i.e. no replication).
+
+Using the /backend/routes/*** pattern, you could easily map all Action, View and Configure requests through tiles-shared
+and dynamically add in the JS script references in the HTML with some template magic.
