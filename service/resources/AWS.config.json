@@ -1,0 +1,14 @@
+{
+  "accessKeyId": "TODO_REPLACE_WITH_YOUR_AWS_KEY",
+  "secretAccessKey": "TODO_REPLACE_WITH_YOUR_AWS_KEY",
+  "LIMITATION_NOTE" : "REGION MUST BE us-east-1 DUE TO AWS IOT AVAILABILITY",
+  "region": "us-east-1",
+  "sslEnabled": true,
+  "maxRetries": 3,
+  "logger": "process.stdout",
+  "apiVersion": "2016-12-01",
+  "apiVersions": {
+    "s3": "latest",
+    "iot" : "latest"
+  }
+}
