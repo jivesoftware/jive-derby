@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jive Derby - Race Manager</title>
+    <meta charset="UTF-8">
+    <!--<link rel="icon" type="image/png" href="./images/favicon_64.png" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      var MAX_LANES = {{maxLanes}};
+      var HOST = "{{{host}}}";
+      var JIVE_TENANT_ID = "{{jiveTenantID}}";
+      var DEFAULT_DERBY = {
+        id : "{{derby.id}}",
+        name : "{{derby.name}}",
+        public : {{derby.public}},
+        active : {{derby.active}}
+      };
+      var PROXY_URL = "{{{proxyURL}}}";
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      var socket = io(HOST);
+      socket.on('connect', function(){ console.log('*** onConnect'); });
+      socket.on('message', function(data) {  app.addToRaceStatusLog(data); });
+      socket.on('disconnect', function(){ console.log('*** onDisconnect');  });
+      socket.on('raceResults', function(raceResults) {
+        console.log('*** raceResults',raceResults);
+        app.displayResults(raceResults);
+        app.addToRaceStatusLog({ type: "INFO", message : JSON.stringify(raceResults,null,4)});
+      });
+    </script>
+    <script type="text/javascript" src="/javascripts/main.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css" />
+  </head>
+
+  <body>
+    <div id="main-wrapper">
+      <div class="meta-details">
+          <img src="/images/jive-derby-logo.png" /><br/>
+          <label>IP:</label> <span>{{ipAddress}}</span>
+      </div>
+      <div id="lane-manager">
+        <h2>Manage Racers</h2>
+        <p>Use this interface to set the racer / lane information per race.</p>
+
+        <!-- TODO: ADD IN RACE NAME SUPPORT -->
+
+        <div id="lanes-wrapper" class="clearfix">
+          {{#lanes}}
+          <div class="lane-wrapper" data-lane="{{.}}">
+            <div class="messages" style="display: none;"></div>
+            <div class="results racePlace" style="display: none;"></div>
+            <!--TODO: EXAMPLE OF FINAL DOM AFTER MANIPULATION -->
+            <!-- <div class="results racePlace racePlace{{.}}">1:01:1235</div> -->
+            <div class="lane-info">
+              <div class="lane-number">{{.}}</div>
+              <div class="lookup-racer">
+                <input type="text" class="racerID" placeholder="Racer ##### (i.e. 1234)"/>
+              </div>
+              <div class="racer-details" style="display: none;">
+                <img class="racer-avatar" />
+                <span class="racer-name">...</span>
+                <span class="racer-company">...</span>
+                <p></p>
+                <a class="resetRacerBtn btn btn-danger" data-lane="{{.}}" href="#">Reset</a>
+              </div>
+            </div>
+          </div>
+          {{/lanes}}
+        </div>
+      </div>
+      <div class="race-controls clearfix">
+        <input type="button" id="startRaceBtn" class="btn btn-success" value="Start Race" />
+        <input type="button" id="resetRaceBtn" class="btn btn-warning" value="Reset" />
+
+        <div class="mode-info">
+          <input type="checkbox" id="diagnosticMode" {{#diagnosticMode}}checked="checked"{{/diagnosticMode}}>
+          <label for="diagnosticMode">Live Mode?</label>
+        </div>
+      </div>
+      <div class="derby-info clearfix">
+        <h4>Derby Details</h4>
+        <label for="derbyID">ID:</label>
+        <input type="text" id="derbyID" class="derby-control disabled-control" value="{{derby.id}}" disabled="disabled" />
+        <label for="derbyName">Name:</label>
+        <input type="text" id="derbyName" class="derby-control disabled-control" value="{{derby.name}}" disabled="disabled" />
+        <label for="derbyPublic">Public</label>
+        <input type="checkbox" id="derbyPublic" class="derby-control disabled-control" disabled="disabled" {{#derby.public}}checked="checked"{{/derby.public}} value="true"/>
+        <label for="derbyActive">Active</label>
+        <input type="checkbox" id="derbyActive" class="derby-control disabled-control" disabled="disabled" {{#derby.active}}checked="checked"{{/derby.active}} value="true" />
+
+        <input type="checkbox" id="derby-override" />
+        <label for="derby-override">Override</label>
+
+        <input type="button" id="derby-save" value="Save" style="display: none; "/>
+      </div>
+      <div class="race-status-log">
+          <h4>Race Status Log</h4>
+          <pre></pre>
+      </div>
+    </div>
+  </body>
+</html>

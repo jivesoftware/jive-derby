@@ -1,0 +1,49 @@
+{
+    "name": "jive-derby-raspi",
+    "version": "0.0.1",
+    "description": "Handles all data/communications with environment sensors and pushes to jive-derby-service",
+    "private": true,
+    "main": "app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "prestart": "npm install",
+      "start": "ngrok http 8090 > /dev/null & sudo node app.js"
+    },
+    "author": "Jive Developers (Open Source) <jivedev@jivesoftware.com>",
+    "contributors": [
+      "Ryan Rutan <ryan.rutan@jivesoftware.com>"
+    ],
+    "license": "(MIT OR Apache-2.0)",
+    "private": true,
+    "engines": {
+      "node": ">=6.0.0"
+    },
+    "dependencies": {
+        "express": "4.14.0",
+        "express-basic-auth" : "0.2.3",
+        "body-parser": "1.15.2",
+        "method-override": "2.3.6",
+        "errorhandler": "1.4.3",
+        "serve-favicon": "2.3.0",
+        "jive-sdk":"*",
+        "consolidate": "0.14.1",
+        "q": "1.4.1",
+        "request": "^2.74.0",
+        "serialport": "^4.0.1",
+        "noble" : "1.7.0",
+        "raspicam" : "*",
+        "rpi-gpio" : "*",
+        "uuid" : "3.0.1",
+        "socket.io" : "1.7.2",
+        "aws-iot-device-sdk" : "*",
+        "ip" : "1.1.5",
+        "gm" : "1.23.0",
+        "thunderboard-ble" : "^0.1.0",
+        "gifencoder" : "1.0.6",
+        "glob-stream": "~3.1.9",
+        "through2": "~0.2.3",
+        "jpg-stream": "1.1.1",
+        "jpeg-js": "0.2.0",
+        "get-pixels": "3.3.0"
+    }
+}
