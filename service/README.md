@@ -20,6 +20,10 @@ TODO:  ADD DETAILS ... jive-sdk build addon ... use ./extension.zip > Add-On Con
 ## Add Jive Derby DES Client
 TODO:  ADD DETAILS ... Add-On Console > Analytics Services > Add Client
 
+## Configure the Jive Cloud Environment environment.js
+Update the /tiles/tiles-shared/public/javascripts/environment.js accordingly
+TODO: REMOVE THIS NEED ONCE WE HAVE A CHANCE TO REFACTOR MORE FOR PACKAGED SOLUTION WITH EXT-PROPS
+
 ## Add Gamification Support (Optional)
 TODO:  ADD DETAILS ...
 
@@ -40,6 +44,9 @@ There are a ton of configuration options in this file.  So let's get started.
 
 * *ext.jive.options.apiUserFields* - These are the allowed API fields that will be pulled from the Jive Service.
 >Note:  Must be a superset of **raspi/jiveclientconfiguration.json** > ext.jive.extendedProfileFields
+
+* *ext.jive.options.tenantID* - This should match the tenantID of your primary Jive Instance.
+>Note:  This value can be found in the Add-On registration payload
 
 * *ext.jive.des.service* - The DES service end-point you wish to use.  Default to US, alternatively use: *api-eu.jivesoftware.com*
 * *ext.jive.des.clientID,clientSecret* - The DES clientID/secret generated from your Jive Instance.  See *Add DES Client ID/Secret* Steps (above)

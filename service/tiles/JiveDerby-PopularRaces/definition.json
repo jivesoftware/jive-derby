@@ -14,7 +14,8 @@
         "48": "https://developer.jivesoftware.com/jive-derby/icon48.png",
         "128": "https://developer.jivesoftware.com/jive-derby/icon128.png"
     },
-    "config": "/tiles-shared/configure?tile=popularRaces&features=responsive,tile,core-v3,os-2.5",
-    "view": "/tiles-shared/view?tile=popularRaces&features=responsive,tile,core-v3,os-2.5",
-    "action": "/tiles-shared/action?tile=popularRaces&features=responsive,tile,core-v3,os-2.5"
+    "config": "/tiles-shared/config-default.html?title=Popular%20Races&features=responsive,tile,core-v3,os-2.5",
+    "view": "/tiles-shared/view-popularRaces.html?features=responsive,tile,core-v3,os-2.5",
+    "action": "/tiles-shared/config-default.html?title=Popular%20Races&features=responsive,tile,core-v3,os-2.5",
+    "registerTileWhenPackaged" : true
 }

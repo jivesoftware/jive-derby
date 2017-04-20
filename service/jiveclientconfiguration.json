@@ -2,6 +2,8 @@
   "clientUrl": "https://TODO_YOUR_JIVE_DERBY_CLOUD_SERVICE_URL.com",
   "port": "8090",
   "development": false,
+  "packageApps": true,
+  "packageAddOnConfigure" : "/tiles",
   "scheduler" : "memory",
   "clientUrlExcludesPort": true,
   "logLevel": "DEBUG",
@@ -22,7 +24,7 @@
     "releasedOn": "2017-04-17T20:54:17.244Z",
     "register_url": "%serviceURL%/jive/oauth/register",
     "unregister_url": "%serviceURL%/jive/oauth/unregister",
-    "config_url": "%serviceURL%/tiles-shared/configure?tile=addon&features=tile,core-v3,os-2.5,oauth"
+    "config_url": "%serviceURL%/tiles-shared/config-addon.html?features=tile,core-v3,os-2.5,oauth"
   },
   "ext": {
     "events" : {
@@ -66,7 +68,7 @@
         "raceActivity": {
           "name": "JiveDerby-RaceActivity",
           "title": "%s - #%d - Race Results",
-          "configuration-ui" : "views/configuration/raceActivity.html",
+          "configuration-ui" : "config-raceActivity.html",
           "mentionTemplate": "<a class=\"jive-link-profile-small jiveTT-hover-user\" data-objectid=\"%d\" data-objecttype=\"3\" href=\"%s\">%s</a>",
           "description": "Congratulations %s for winning the Jive Derby race%s!",
           "externalID": "jderby-%s-%d",
@@ -105,7 +107,7 @@
           "title": "%s - Popular Races",
           "tileConfigHeader" : "Popular Races",
           "tileViewHeader" : "Popular Races (VIEW)",
-          "view-ui" : "views/popularRaces.html",
+          "view-ui" : "view-popularRaces.html",
           "lastNumberOfDays" : 4,
           "maxRaceCount" : 10,
           "startupDelay" : 30000,
@@ -126,7 +128,7 @@
           "title": "%s - Race Stats",
           "tileConfigHeader" : "Race Stats",
           "timeStatValue" : "%d secs",
-          "action-ui" : "views/action/raceStats.html",
+          "action-ui" : "action-raceStats.html",
           "raceHistoryMaxCount" : 30,
           "sql" : {
             "getRaceStats" : "SELECT count(distinct rr.raceID) AS \"numRaces\", count(distinct rr.racerID) AS \"numRacers\", min(rr.totalTimeSec) AS \"fastestTimeSec\", round(avg(rr.totalTimeSec),4) AS \"averageTimeSec\", (select jiveurl from jderby_races where jiveurl is not null ORDER by id DESC LIMIT 1) AS \"lastRaceURL\" FROM jderby_results rr, jderby_races r, jderby_derbies d WHERE d.id=r.derbyID AND r.id=rr.raceID AND r.derbyID=$1::text AND rr.isActive=true",
@@ -149,7 +151,7 @@
           "name" : "JiveDerby-TopRacers",
           "title": "%s - Top Racers",
           "tileConfigHeader" : "Top Racers",
-          "action-ui" : "views/action/topRacers.html",
+          "action-ui" : "view-topRacers.html",
           "topRacersSQL" : "SELECT rrr.id as \"racerID\", rrr.avatarURL as \"avatarURL\", rrr.profileURL as \"profileURL\", rrr.name as \"racerName\", rr.totalTimeSec as \"fastestTimeSec\", (SELECT COUNT(DISTINCT raceID) FROM jderby_results WHERE isActive=true AND racerID=rr.racerID) as \"numRaces\" FROM jderby_results rr, jderby_racers rrr, jderby_races r WHERE rr.racerID=rrr.id AND r.id=rr.raceID AND rr.isPrimary=true AND r.derbyID=$1::text ORDER BY rr.totalTimeSec LIMIT $2::int",
           "fastestTimeLbl" : "Fastest Time: %d secs",
           "numRacesLbl" : "# of Races: %d",
@@ -159,14 +161,14 @@
         "addon": {
           "tileConfigHeader" : "Jive Derby - System Configure",
           "tileViewHeader" : "Jive Derby - System Configure",
-          "configuration-ui" : "views/configuration/addon.html"
+          "configuration-ui" : "config-addon.html"
         },
         "shared": {
           "tileConfigHeader" : "Jive Derby",
           "tileViewHeader" : "Jive Derby",
-          "configuration-ui" : "views/configuration/default.html",
-          "action-ui" : "views/action/default.html",
-          "view-ui" : "default.html"
+          "configuration-ui" : "config-default.html",
+          "action-ui" : "action-default.html",
+          "view-ui" : "view-default.html"
         }
       }
     },

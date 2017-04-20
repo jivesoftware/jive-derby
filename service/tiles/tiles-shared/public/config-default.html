@@ -2,9 +2,7 @@
 <head>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    var HOST = "{{{host}}}";
-  </script>
+  <script src="javascripts/environment.js"></script>
   <script src="javascripts/configuration/default.js"></script>
   <script src="javascripts/main.js"></script>
 
@@ -14,7 +12,7 @@
 <body>
 
 <div id="main-wrapper" class="default-config-wrapper j-card">
-    <h4>Jive Derby - {{tileHeader}} Configuration</h4>
+    <h4>Jive Derby - <span id="tile-header" style="display: none;"></span> Configuration</h4>
 
     <div id="current-config-wrapper" class="bg-success" style="display: none">
       Current Derby: <span id="current-config"></span>

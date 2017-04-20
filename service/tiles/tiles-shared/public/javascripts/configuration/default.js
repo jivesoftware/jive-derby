@@ -13,6 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 *************************************************/
+function getParam(name) {
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  if (results==null){
+     return null;
+  }
+  else{
+     return decodeURI(results[1]) || 0;
+  }
+} // end function
 
 //************************************************************************
 //NOTE: CALLED AS SOON AS THE FULL CONTEXT IS RESOLVED
@@ -28,6 +37,12 @@ function onReady(tileConfig,tileOptions,viewer,container) {
     $('#current-config').html(tileConfig["derbyName"]);
     $('#current-config-wrapper').slideDown('fast',app.resize);
   } // end if
+
+  /**** UPDATES THE TITLE SECTION OF THE HTML FROM PARAMETER ****/
+  if (getParam('title')) {
+    $('#tile-header').html(getParam('title'));
+  } // end if
+  $('#tile-header').show();
 
   /*** FETCH LIST OF AVAILABLE DERBY PLACES ***/
   osapi.jive.core.get({

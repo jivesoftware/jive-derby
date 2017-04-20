@@ -3,10 +3,8 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-  <script type="text/javascript">
-    var HOST = "{{{host}}}";
-  </script>
-  <script src="javascripts/view/{{tileName}}.js"></script>
+  <script src="javascripts/environment.js"></script>
+  <script src="javascripts/view/yourRaces.js"></script>
   <script src="javascripts/main.js"></script>
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +13,7 @@
 <body>
 
 <div id="main-wrapper" class="yourRaces-wrapper j-card">
-  <h2>{{tileHeader}}</h2>
+  <h2>Your Races</h2>
   <div id="loading-wrapper">
     <img src="images/loading.gif" />
   </div>
@@ -27,8 +25,7 @@
   </div>
 </div>
 </body>
-<!-- USED TO PREVENT MUSTACHE FOR JACKING WITH THE TEMPLATE TAGS -->
-{{=<% %>=}}
+
 <script type="text/template" id="race-item-template">
   <li class="race-item" data-contentid="{{content.id}}">
     <a href="{{content.url}}" target="_parent">{{derby.name}} {{race.name}}</a><br/>
