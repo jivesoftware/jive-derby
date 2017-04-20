@@ -5,6 +5,7 @@
 The cloud enviroment
 
 ## Dependencies
+* Jive SDK v0.2.17+ (required for enhancements to add-on packaging)
 * Node VM 6.9.x (or greater) (untested on v7.x)
 * Postgres 9.6.1 (or native row_to_json, array_to_json support)
 
