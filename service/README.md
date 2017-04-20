@@ -25,8 +25,14 @@ TODO:  ADD DETAILS ... Add-On Console > Analytics Services > Add Client
 Update the /tiles/tiles-shared/public/javascripts/environment.js accordingly
 TODO: REMOVE THIS NEED ONCE WE HAVE A CHANCE TO REFACTOR MORE FOR PACKAGED SOLUTION WITH EXT-PROPS
 
+## Disable Package Apps & Package Add-Ons (Optional)
+In the event you want to iterate and do development, you may find it handy to disable the following properties in *jiveclientconfiguration.json*:
+* packageApps
+* packageAddOnConfigure
+
 ## Add Gamification Support (Optional)
 TODO:  ADD DETAILS ...
+
 
 See: https://docs.jivesoftware.com/cloud_int/comm_mgr/jive.help.rewards/#admin/RewardingActivityfromOtherSystems.html
 or Bunchball documentation
