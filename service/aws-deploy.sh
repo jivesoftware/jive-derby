@@ -5,7 +5,8 @@
 
 export fileName='jive-derby-aws-'$(($(date +"%Y%m%d%H%M%S")))'.zip'
 echo Generating $fileName...
-zip $fileName -r apps \
+zip $fileName -r .ebextensions \
+apps \
 extension_src \
 lib \
 public \

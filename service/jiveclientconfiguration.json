@@ -39,7 +39,8 @@
     },
     "jive": {
       "options" : {
-        "apiUserFields" : "jive.enabled,resources.avatar,resources.html,resources.self,jive.username,displayName,jive.profile.Company,jive.profile.Title"
+        "apiUserFields" : "jive.enabled,resources.avatar,resources.html,resources.self,jive.username,displayName,jive.profile.Company,jive.profile.Title",
+        "tenantID" : "TODO_SHOULD_MATCH_THE_TENANT_ID_OF_YOUR_JIVE_INSTANCE"
       },
       "oauth2": {
         "clientOAuth2CallbackUrl": "/jive/oauth/callback"
