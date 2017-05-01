@@ -173,9 +173,10 @@ var RaceManager = function Constructor(config) {
   if (irEnabled) {
     gpio.on('change',
       function(channel,value) {
+        var splitTimestamp = (new Date().getTime() - self.startTime.getTime())/1000;
         if (!value) {
-          if (self.isRaceActive()) {
-            self.splits.push((new Date().getTime() - self.startTime.getTime())/1000);
+          if (self.isRaceActive() && self.isFirstBeamBreak(channel)) {
+            self.splits.push(splitTimestamp);
           } else {
             jive.logger.debug("","Race is not currently active, ignoring ...");
           } // end if
@@ -198,6 +199,7 @@ RaceManager.prototype.reset = function() {
   this.photoTaken = {};
   this.derbyTimer.reset();
   this.splits = [];
+  this.beamBreaks = [];
 
   SocketIo.sendMessage("INFO","RaceManager Reset");
 
@@ -271,6 +273,13 @@ RaceManager.prototype.stopRace = function(errorDetected) {
 
 RaceManager.prototype.isRaceActive = function() {
   return (this.currentStatus === RACE_STATUS_STARTED);
+} // end function
+
+RaceManager.prototype.isFirstBeamBreak = function(channel) {
+    this.beamBreaks = this.beamBreaks || [];
+    var isFirst = (this.beamBreaks.indexOf(channel) < 0);
+    this.beamBreaks.push(channel);
+    return isFirst;
 } // end function
 
 RaceManager.prototype.isPhotoTaken = function(channel) {
