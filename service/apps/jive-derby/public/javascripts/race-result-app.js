@@ -119,7 +119,16 @@ function onData(data) {
   };
 
   /*** ADD IN RACE SPLITS ****/
-  //TODO:
+  //TODO: HACKED IN FOR JIVEWORLD17, FORGOT TO INCLUDE IN UI
+  data["splits"].forEach(
+    function(split,idx) {
+      $("#measurements").append(fillTemplate('measurement-template',{ measurement : {
+        label : "Split "+(idx+1),
+        unit : "sec",
+        value : split
+      }}));
+    } // end function
+  );
 
   /*** DISPLAY ANY AND ALL MEASUREMENTS WE'VE COLLECTED ***/
   data["measurements"].forEach(
